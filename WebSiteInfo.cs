@@ -8,8 +8,9 @@ namespace WindowsFormsApp1
 {
     public class WebSiteInfo
     {
-        private  string url;
-        private  List<string> mailList = new List<String>();
+        private  String url;
+        private  List<String> mailList = new List<String>();
+        private List<String> phoneList = new List<String>();
 
         public string Url   // property
         {
@@ -17,10 +18,26 @@ namespace WindowsFormsApp1
             set { url = value; }  // set method
         }
 
-        public void addToList( string value)
+        public void addToMailList( string value)
         {
             if (this.mailList.Contains(value) == false)
                 this.mailList.Add(value);
+        }
+
+        public void addToPhoneList(string value)
+        {
+            if (this.phoneList.Contains(value) == false)
+                this.phoneList.Add(value);
+        }
+
+        public void printMailList()
+        {
+            this.mailList.ForEach(w => Console.WriteLine("  " + w));
+        }
+
+        public void printPhoneList()
+        {
+            this.phoneList.ForEach(w => Console.WriteLine("  " + w));
         }
     }
 }

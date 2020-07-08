@@ -26,9 +26,6 @@ namespace WindowsFormsApp1
         {
             WebDriver web = new WebDriver();
 
-            /*wypisuje tekst i link podstrony */
-            //textBox1.AppendText(web.WebElementToString(5));
-
             /*obsługa listy nazw stron*/
             //List<String> textSites = new List<String>();
             //textSites = web.allSitesFromMainSearchText();
