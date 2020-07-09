@@ -24,7 +24,11 @@ namespace WindowsFormsApp1
 
         private void startBrowser()
         {
-            driver = new ChromeDriver();
+            var chromeOptions = new ChromeOptions();
+            chromeOptions.AddArguments("--download_restrictions=3");
+            //chromeOptions.AddArguments("--incognito");
+            driver = new ChromeDriver(chromeOptions);
+           // driver = new ChromeDriver();
             driver.Manage().Window.Maximize();
         }
 
@@ -58,7 +62,7 @@ namespace WindowsFormsApp1
         private void findSitesFromMainSearch()
         {
 
-           // ReadOnlyCollection<IWebElement> siteButtons = driver.FindElements(By.XPath("//*[@class='r']//*[contains(@href, 'https://www.viperprint.pl/')]"));
+            //ReadOnlyCollection<IWebElement> siteButtons = driver.FindElements(By.XPath("//*[@class='r']//*[contains(@href, 'https://www.viperprint.pl/')]"));
             ReadOnlyCollection<IWebElement> siteButtons = driver.FindElements(By.XPath("//*[@class='r']//*[contains(@href, 'http')]"));
 
             foreach (IWebElement webDriver in siteButtons)
@@ -113,16 +117,19 @@ namespace WindowsFormsApp1
                 try
                 {
                     string result = webDriver.GetAttribute("href");
+                    //sprawdzenie, czy adres kończy się na .<ciąg a-z v A-Z>
+                    int count = Regex.Matches(result, @"^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+[\.]([a-z]{0,}[A-Z]{0,})$").Count;
 
                     //sprawdzenie, czy ten adres jest juz na liscie
-                    if (this.websitesList.Contains(result) == false)
-                        this.websitesList.Add(result);
+                   if (this.websitesList.Contains(result) == false && count==0)
+                   // if (this.websitesList.Contains(result) == false)
+                       this.websitesList.Add(result);
                 }
                 catch { }
 
             }
-            //Console.WriteLine("After all Subpages: ");
-            //this.websitesList.ForEach(w => Console.WriteLine("Website: " + w));
+            Console.WriteLine("After all Subpages: ");
+            this.websitesList.ForEach(w => Console.WriteLine("Website: " + w));
 
         }
 
@@ -242,15 +249,15 @@ namespace WindowsFormsApp1
             }       
         }
 
-        /*inicjalizacja działania webDrivera - taki jakby mój wewnętrzny main jak na razie */
+        /*inicjalizacja działania webDrivera*/
         public void runWebDriver()
         {
             startBrowser();
             googleSearch("drukarnia");
 
-            findSitesFromMainSearch();
+            //findSitesFromMainSearch();
            // this.websitesList.ForEach(w => Console.WriteLine("Website: " + w));
-            //allSubpages();
+            allSubpages();
 
             //próba wejścia w pierwszy link
             //string url = this.websitesList[0];
