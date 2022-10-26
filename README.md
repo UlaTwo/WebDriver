@@ -1,8 +1,8 @@
 # WebDriver - RPA Project
 
 ## Description
-Program collect information in database from sites searched on google. Search descriptive words are set by user.
-It collects information about site url, mail address, telephone number and address
+Program used for collecting information from sites searched on google and adding them to databese. Search descriptive words are set by user.
+Collects information about site url, mail address, telephone number and address.
 
 ## Technology
 * Programming language: C# and SQL
